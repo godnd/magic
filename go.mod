@@ -1,4 +1,4 @@
-module github.com/inquizarus/godnd/spells
+module github.com/inquizarus/godnd/magic
 
 go 1.14
 

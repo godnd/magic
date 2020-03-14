@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/inquizarus/godnd/spells/handlers"
+	"github.com/inquizarus/godnd/magic/handlers"
 	"github.com/inquizarus/gorest"
 	log "github.com/sirupsen/logrus"
 )
