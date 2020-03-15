@@ -1,6 +1,7 @@
 package main
 
 import (
+	"net/http"
 	"os"
 
 	"github.com/inquizarus/godnd/magic/handlers"
@@ -36,6 +37,20 @@ func main() {
 		},
 		Middlewares: []gorest.Middleware{
 			gorest.WithJSONContent(),
+			func(f http.HandlerFunc) http.HandlerFunc {
+				// Define the http.HandlerFunc
+				return func(w http.ResponseWriter, r *http.Request) {
+					fields := map[string]interface{}{
+						"referer":         r.Referer(),
+						"client-ip":       r.RemoteAddr,
+						"uri":             r.URL.RequestURI(),
+						"query":           r.URL.Query().Encode(),
+						"x-forwarded-for": r.Header.Get("X-FORWARDED-FOR"),
+					}
+					logger.WithFields(fields).Info("incoming request")
+					f(w, r)
+				}
+			},
 		},
 	}
 	gorest.Serve(cfg)
