@@ -6,3 +6,6 @@ type Spell struct {
 	School string `json:"school"`
 	Ritual bool   `json:"ritual"`
 }
+
+// Spells list all the different spells
+var Spells = []Spell{}
